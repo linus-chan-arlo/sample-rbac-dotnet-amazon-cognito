@@ -1,6 +1,6 @@
 namespace WebPage.Contracts;
 
-record RbacConfig
+record ArloRbacConfig
 {
     public string Authority { get; set; } = string.Empty;
     public string IdentityPoolId { get; set; } = string.Empty;

@@ -53,7 +53,7 @@ builder.Services.AddAuthentication(options =>
     {
         SecretsManagerCache secretsManager = new();
         string clientSecret = secretsManager.GetSecretString("web-page-secrets").Result ?? "{}";
-        var idConfig = JsonSerializer.Deserialize<RbacConfig>(clientSecret) ?? new();
+        var idConfig = JsonSerializer.Deserialize<ArloRbacConfig>(clientSecret) ?? new();
 
         options.MetadataAddress = idConfig.Authority + "/.well-known/openid-configuration";
         options.ClientId = idConfig.ClientId;
@@ -103,7 +103,7 @@ Task OnRedirectToIdentityProviderForSignOut(RedirectContext context)
 {
     var secretsManager = context.HttpContext.RequestServices.GetService<SecretsManagerCache>() ?? new SecretsManagerCache();
     string clientSecret = secretsManager.GetSecretString("web-page-secrets").Result ?? "{}";
-    var idConfig = JsonSerializer.Deserialize<RbacConfig>(clientSecret) ?? new();
+    var idConfig = JsonSerializer.Deserialize<ArloRbacConfig>(clientSecret) ?? new();
 
     context.ProtocolMessage.ResponseType = OpenIdConnectResponseType.Code;
     var logoutUrl = $"{context.Request.Scheme}://{context.Request.Host}/";

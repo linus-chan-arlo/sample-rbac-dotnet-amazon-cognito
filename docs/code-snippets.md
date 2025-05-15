@@ -121,7 +121,7 @@ builder.Services.AddAuthentication(options =>
     {
         SecretsManagerCache secretsManager = new();
         string clientSecret = secretsManager.GetSecretString("web-page-secrets").Result ?? "{}";
-        var idConfig = JsonSerializer.Deserialize<RbacConfig>(clientSecret) ?? new();
+        var idConfig = JsonSerializer.Deserialize<ArloRbacConfig>(clientSecret) ?? new();
 
         options.MetadataAddress = idConfig.Authority + "/.well-known/openid-configuration";
         options.ClientId = idConfig.ClientId;
@@ -165,7 +165,7 @@ builder.Services.AddAuthentication(options =>
 {
     SecretsManagerCache secretsManager = new();
     string clientSecret = secretsManager.GetSecretString("web-api-secrets").Result ?? "{}";
-    var idConfig = JsonSerializer.Deserialize<RbacConfig>(clientSecret) ?? new();
+    var idConfig = JsonSerializer.Deserialize<ArloRbacConfig>(clientSecret) ?? new();
 
     options.Authority = idConfig.Authority;
     options.MetadataAddress = idConfig.Authority + "/.well-known/openid-configuration";

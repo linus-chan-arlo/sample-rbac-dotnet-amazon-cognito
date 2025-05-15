@@ -65,7 +65,7 @@ public class DataRepository : IDataRepository
     private CognitoAWSCredentials TradeCognitoToken(string token)
     {
         string clientSecret = secretsManager.GetSecretString("web-page-secrets").Result ?? "{}";
-        var idConfig = JsonSerializer.Deserialize<RbacConfig>(clientSecret) ?? new();
+        var idConfig = JsonSerializer.Deserialize<ArloRbacConfig>(clientSecret) ?? new();
 
         BucketName = idConfig.BucketName;
         string issuer = idConfig.Authority.Split("://")[1];
