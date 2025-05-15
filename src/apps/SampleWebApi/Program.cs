@@ -40,7 +40,7 @@ builder.Services.AddAuthentication(options =>
 {
     SecretsManagerCache secretsManager = new();
     string clientSecret = secretsManager.GetSecretString("web-api-secrets").Result ?? "{}";
-    var idConfig = JsonSerializer.Deserialize<RbacConfig>(clientSecret) ?? new();
+    var idConfig = JsonSerializer.Deserialize<ArloRbacConfig>(clientSecret) ?? new();
 
     options.Authority = idConfig.Authority;
     options.MetadataAddress = idConfig.Authority + "/.well-known/openid-configuration";
